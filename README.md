@@ -4,7 +4,7 @@ An Acceptance and Non Regression Test Suite for [Earmark](https://github.com/pra
 
 ## Usage
 
-Pull requests are the suggested mean to add test cases.
+Pull requests are the suggested means to add test cases.
 
 ### Adding your own tests
 
@@ -13,13 +13,15 @@ Pull requests are the suggested mean to add test cases.
 You can only add tests that **pass** in the current version of `Earsuite` implying a certain version for `Earmark` 
 
 
-Add your tests inside your existing or to be created subdur inside  the `specs` directory. As soon as you are in there
+Add your specs inside your existing or to be created subdur inside  the `specs` directory. As soon as you are in there
 you can use a dir tree almost as wild, strutured or unstructured as you want.
 
 For simplicity and the advantage of avoiding any naming conflicts I will only merge PRs where the name of the specs subdirectory
 matches the Github name of the author of the PR.
 
-Once you have your subdir structure worked out, all you need to do is to put pairs of `.md`  and `.html` files into your tree.
+Once you have your subdir structure worked out, all you need to do is to add specs.
+
+A spec is simply a pair of a Markdown `.md` and an HTML `.html` file.
 
 Whenever `mix test` is run, the Markdown file will be converted to html and structurally compared to the provided HTML file.
 
