@@ -1,0 +1,2 @@
+defmodule Earsuite do
+end
