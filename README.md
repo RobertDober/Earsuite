@@ -23,6 +23,27 @@ Once you have your subdir structure worked out, all you need to do is to add spe
 
 A spec is simply a pair of a Markdown `.md` and an HTML `.html` file.
 
+Typically we will have a layout like the following
+
+```
+    specs
+├── pragdave
+│   └── earmark
+│       ├── block
+│       │   ├── moduledoc.html
+│       │   └── moduledoc.md
+│       ├── parser
+│       │   ├── moduledoc.html
+│       │   └── moduledoc.md
+│       ├── README.html
+│       └── README.md
+└── RobertDober
+    └── kwfuns
+        ├── README.html
+        └── README.md
+
+```
+
 Whenever `mix test` is run, the Markdown file will be converted to html and structurally compared to the provided HTML file.
 
 And that is the hard part I am going to work on....
