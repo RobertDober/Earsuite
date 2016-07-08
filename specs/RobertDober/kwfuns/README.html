@@ -1,0 +1,29 @@
+<h1>Kwfuns</h1>
+<p><a href="https://travis-ci.org/RobertDober/lab42_defkw"><img src="https://travis-ci.org/RobertDober/lab42_defkw.svg" alt="Build Status"/></a>
+<a href="https://hex.pm/packages/kwfuns"><img src="https://img.shields.io/hexpm/v/kwfuns.svg?style=flat-square" alt="Hex.pm"/></a>
+<a href="http://inch-ci.org/github/RobertDober/lab42_defkw"><img src="http://inch-ci.org/github/RobertDober/lab42_defkw.svg" alt="Inline docs"/></a></p>
+<h2>Macros to create functions with syntax based keyword parameters with default values</h2>
+<h3>Usage</h3>
+<pre><code class="elixir">    defmodule MyModule do
+      use Kwfuns
+      # Now use the macros defkw or defkwp
+      ...
+    end</code></pre>
+<p>Detailed Documentation can be found <a href="http://hexdocs.pm/kwfuns/Kwfuns.html">here</a></p>
+<h3>LICENSE</h3>
+<p>Same as Elixir, which is Apache 2.0, please refer to <a href="LICENSE">LICENSE</a> for details.</p>
+<h2>Installation</h2>
+<p>If <a href="https://hex.pm/docs/publish">available in Hex</a>, the package can be installed as:</p>
+<ol>
+<li><p>Add kwfuns to your list of dependencies in <code class="inline">mix.exs</code>:</p>
+<p>  def deps do</p>
+<pre><code>[{:kwfuns, &quot;~&gt; 0.0.1&quot;}]</code></pre>
+<p>  end</p>
+</li>
+<li><p>Ensure kwfuns is started before your application:</p>
+<p>  def application do</p>
+<pre><code>[applications: [:kwfuns]]</code></pre>
+<p>  end</p>
+</li>
+</ol>
+
