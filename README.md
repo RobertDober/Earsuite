@@ -1,7 +1,8 @@
 # Earsuite
 
 An Acceptance and Non Regression Test Suite for [Earmark](https://github.com/pragdave/earmark)  
-[![Build Status](https://travis-ci.org/RobertDober/earsuite.svg?branch=master)](https://travis-ci.org/RobertDober/earmark)
+
+[![Build Status](https://travis-ci.org/RobertDober/earsuite.svg?branch=master)](https://travis-ci.org/RobertDober/earsuite)
 
 ## Usage
 
