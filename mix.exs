@@ -8,6 +8,7 @@ defmodule Earsuite.Mixfile do
      elixirc_paths:   elixirc_paths(Mix.env),
      build_embedded:  Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     escript: escript_config(),
      deps: deps()]
   end
 
@@ -36,4 +37,8 @@ defmodule Earsuite.Mixfile do
 
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_),     do: ["lib"]
+
+  defp escript_config do 
+    [ main_module: Earsuite.Cli ]
+  end
 end
