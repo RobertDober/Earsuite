@@ -1,0 +1,9 @@
+<p> The <code class="inline">String.Chars</code> protocol is responsible for
+  converting a structure to a Binary (only if applicable).
+  The only function required to be implemented is
+  <code class="inline">to_string</code> which does the conversion.</p>
+<p>  The <code class="inline">to_string</code> function automatically imported
+  by Kernel invokes this protocol. String
+  interpolation also invokes <code class="inline">to_string</code> in its
+  arguments. For example, <code class="inline">&quot;foo#{bar}&quot;</code> is the same
+  as <code class="inline">&quot;foo&quot; &lt;&gt; to_string(bar)</code>.</p>

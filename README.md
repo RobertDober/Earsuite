@@ -46,9 +46,28 @@ Typically we will have a layout like the following
 
 ```
 
-Whenever `mix test` is run, the Markdown file will be converted to html and structurally compared to the provided HTML file.
+#### Automatic HTML Generation
 
-And that is the hard part I am going to work on....
+If you do not have the converted HTML version of your Markdown files you can generate them with the given `Earmark` version in `mix.exs` simply
+by running
+
+    mix escript.build
+    ./earsuite
+
+### Earmark Acceptance Test
+
+Change `mix.exs` to point `Earmark` to the local version to acceptance test, e.g. 
+    
+    {:earmark, path: "/home/robert/git/earmark"},
+
+and simply run the tests
+
+
+## How it (does/will) work?
+
+Whenever `mix test` is run, the Markdown files will be converted to html and structurally compared to the associated HTML files.
+
+And that is the hard part I am going to work on, especially to make head and tails of the diffs ....
 
 
 # LICENSE
