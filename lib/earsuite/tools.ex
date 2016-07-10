@@ -1,6 +1,6 @@
 defmodule Earsuite.Tools do
 
-    @default_spec_dir "specs"
+    @default_spec_dir "specs/Markdown"
     @markdown_rgx     ~r{\.md$}
 
     def emit_colorized ansi_and_bins do
