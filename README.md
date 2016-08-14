@@ -20,30 +20,38 @@ you can use a dir tree almost as wild, strutured or unstructured as you want.
 
 For simplicity and the advantage of avoiding any naming conflicts I will only merge PRs where the name of the specs subdirectory
 matches the Github name of the author of the PR.
+That is `specs/<spec_type>/<github_name>`  where `<spec_type>` can be `Markdown` or `Code` 
 
 Once you have your subdir structure worked out, all you need to do is to add specs.
 
-A spec is simply a pair of a Markdown `.md` and an HTML `.html` file.
+A spec is simply a pair of a Markdown `.md` and an HTML `.html` file or a pair of Elixir code `.ex` and HTML `.html`.
 
 Typically we will have a layout like the following
 
 ```
     specs
-├── pragdave
-│   └── earmark
-│       ├── block
-│       │   ├── moduledoc.html
-│       │   └── moduledoc.md
-│       ├── parser
-│       │   ├── moduledoc.html
-│       │   └── moduledoc.md
-│       ├── README.html
-│       └── README.md
-└── RobertDober
-    └── kwfuns
-        ├── README.html
-        └── README.md
-
+    ├── Code
+    │   └── Earmark
+    │       ├── earmark
+    │       │   ├── alt_parser.ex
+    ...
+    │       │   └── types.ex
+    │       └── earmark.ex
+    └── Markdown
+        ├── RobertDober
+        │   └── kwfuns
+        │       ├── README.html
+        │       └── README.md
+        ├── _deliberate_errors
+        │   ├── string_chars_module_doc.html
+        │   └── string_chars_module_doc.md
+        ├── crertel
+        │   ├── headers.html
+        │   └── headers.md
+        └── elixir-lang
+            └── string
+                ├── moduledoc.html
+                └── moduledoc.md
 ```
 
 #### Automatic HTML Generation

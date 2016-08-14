@@ -8,8 +8,17 @@ defmodule Earsuite.Tools do
       |> IO.ANSI.format(true)
       |> IO.iodata_to_binary()
       |> IO.puts()
-
     end
+
+
+    def extract_markdown_from_file(file) do 
+    IO.inspect file
+      file
+      |> File.read!()
+      |> Code.string_to_quoted()
+      |> Earsuite.Ast.Parser.extract_docs_from_ast()
+    end
+
     @doc """
       Find files in the `dir` directory that match the `filter` regexp (only the file's basename, not
       the whole path, is matched). Recurse into subdirs unless `recursive` is `false`. Defaults to `true`.
@@ -19,7 +28,6 @@ defmodule Earsuite.Tools do
            filter = filter |> Regex.source() |> to_char_list(),
        do:
          :filelib.fold_files( dir, filter, recursive, fn x, a -> [to_string(x)|a] end, [] )
-         |> Stream.map(&(&1))
     end
 
     @doc """
