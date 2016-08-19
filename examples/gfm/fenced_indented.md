@@ -16,7 +16,11 @@
         defmodule
       ```
 
-1. inline
+1. inline, one line
+
+    ```elixir defmodule ```
+
+1. inline, more lines
 
     ```elixir
         defmodule ```
