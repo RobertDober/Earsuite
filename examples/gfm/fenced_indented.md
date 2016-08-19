@@ -33,7 +33,8 @@
 
 1. not inside the &lt;li>
 
-Text
+# Text
 
    ``elixir defmodule``
 
+1. Should start with "1"
