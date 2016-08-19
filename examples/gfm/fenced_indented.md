@@ -26,3 +26,7 @@
     ```elixir defmodule
     ```
 
+1. short inline start
+
+    ``elixir defmodule
+    ``
