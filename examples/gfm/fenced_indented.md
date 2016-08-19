@@ -15,3 +15,8 @@
     ```elixir
         defmodule
       ```
+
+1. inline
+
+    ```elixir
+        defmodule ```
