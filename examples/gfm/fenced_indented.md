@@ -20,3 +20,9 @@
 
     ```elixir
         defmodule ```
+
+1. inline start
+
+    ```elixir defmodule
+    ```
+
