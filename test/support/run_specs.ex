@@ -1,6 +1,5 @@
 defmodule Support.RunSpecs do
 
-
   def render_and_parse(md_file) do 
     md_file
     |> File.read!()

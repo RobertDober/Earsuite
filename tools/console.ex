@@ -40,8 +40,15 @@ defmodule Tools.Console do
     |> Earmark.parse(@opts)
   end
 
+  @doc """
+  markdown -> blocks - context
+  """
+  def blox markdown do 
+    with {blox, _} <- blocks( markdown ), do: blox 
+  end
+
   def parse(markdown) do
     markdown
-    |> Earmark.Parser.parse()
+    |> Earmark.Parser.parse(@opts)
   end
 end
