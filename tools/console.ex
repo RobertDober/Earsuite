@@ -9,6 +9,17 @@ defmodule Tools.Console do
   """
 
   @doc """
+  read file and convert code to ast
+  """
+  def ast_from_file file do 
+    with {:ok, ast} <- file
+      |> File.read!()
+      |> Code.string_to_quoted(),
+    do:
+      ast
+  end
+
+  @doc """
   markdown -> html
   """
   def html markdown do 
@@ -37,4 +48,19 @@ defmodule Tools.Console do
     markdown
     |> Earmark.Parser.parse()
   end
+
+  @doc """
+  walk a nested list
+  """
+  def walk(fun, list, acc), do: _walk(fun, list, [], acc)
+
+  def _walk(_fun, [], [], acc), do: acc
+  def _walk(fun, [], later, acc), do: _walk(fun, later, [], acc) 
+  def _walk(fun, [node|rest], later, acc) when is_list(node) do 
+    _walk(fun, node, [rest|later], acc) 
+  end
+  def _walk(fun, [node|rest], later, acc) do
+    _walk(fun, rest, later, fun.(acc, node))
+  end
+    
 end

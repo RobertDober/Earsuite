@@ -25,6 +25,17 @@ defmodule Earsuite.Tools.ExtractDocsFromAstTest do
       def code, do: :code
     end
   """
+  @nested_modules """
+  defmodule Outer do
+    defmodule Inner do
+      @moduledoc "I am the inner"
+    end
+    @moduledoc "I am the outer"
+  end
+  defmodule Other do
+    @moduledoc "I am the other"
+  end
+  """
   test "no docs" do 
     assert [] == from_string("") 
   end

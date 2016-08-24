@@ -17,7 +17,7 @@ defmodule Earsuite.Ast.Parser do
     end
 
     defp _extract_modules({:__block__, _, list}, result) do
-      with modules = Enum.map(list, &extract_modules/1),
+      with modules = Enum.flat_map(list, &extract_modules/1),
       do: [modules | result]
     end
 

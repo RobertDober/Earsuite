@@ -11,11 +11,16 @@ defmodule Earsuite.Tools do
     end
 
 
+    def ast_from_file(file) do
+      with {:ok, ast} <-
+      file |> File.read!() |> Code.string_to_quoted(),
+      do: ast
+    end
+
     def extract_markdown_from_file(file) do 
     IO.inspect file
       file
-      |> File.read!()
-      |> Code.string_to_quoted()
+      |> ast_from_file()
       |> Earsuite.Ast.Parser.extract_docs_from_ast()
     end
 
