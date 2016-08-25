@@ -15,4 +15,6 @@ erl_crash.dump
 
 # Also ignore archive artifacts (built via "mix archive.build").
 *.ez
-Elixir.Tools.Console.beam
+
+# In case we forget to remove them after `c some_file.ex` in the console.
+*.beam

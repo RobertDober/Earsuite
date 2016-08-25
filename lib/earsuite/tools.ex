@@ -1,6 +1,6 @@
 defmodule Earsuite.Tools do
 
-    @default_spec_dir "specs"
+    @default_spec_dir "specs/Markdown"
     @markdown_rgx     ~r{\.md$}
 
     @doc false
@@ -9,6 +9,20 @@ defmodule Earsuite.Tools do
       |> IO.ANSI.format(true)
       |> IO.iodata_to_binary()
       |> IO.puts()
+    end
+
+
+    def ast_from_file(file) do
+      with {:ok, ast} <-
+      file |> File.read!() |> Code.string_to_quoted(),
+      do: ast
+    end
+
+    def extract_markdown_from_file(file) do 
+    IO.inspect file
+      file
+      |> ast_from_file()
+      |> Earsuite.Ast.Parser.extract_docs_from_ast()
     end
 
     @doc """

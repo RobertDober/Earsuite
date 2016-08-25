@@ -23,6 +23,17 @@ defmodule Tools.Console do
   end
 
   @doc """
+  read file and convert code to ast
+  """
+  def ast_from_file file do 
+    with {:ok, ast} <- file
+      |> File.read!()
+      |> Code.string_to_quoted(),
+    do:
+      ast
+  end
+
+  @doc """
   markdown -> Lines
   """
   def lines markdown do 
