@@ -29,6 +29,7 @@ defmodule Earsuite.Tools.ExtractModulesTest do
   test "empty" do 
     assert [] == from_string("")
   end
+
   defp from_string code do
     with {:ok, ast} <- Code.string_to_quoted(code),
     do:

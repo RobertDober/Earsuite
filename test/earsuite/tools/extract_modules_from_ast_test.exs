@@ -1,9 +1,10 @@
-defmodule Earsuite.Tools.ExtractModulesTest do
+defmodule Earsuite.Tools.ExtractModulesFromAstTest do
   use ExUnit.Case
 
   import Earsuite.Ast.Parser, only: [extract_modules: 1]
 
   @ast {:__block__, [],
+
    [{:defmodule, [line: 1],
      [{:__aliases__, [counter: 0, line: 1], [:Outer]},
       [do: {:__block__, [],
@@ -23,7 +24,9 @@ defmodule Earsuite.Tools.ExtractModulesTest do
      [{:__aliases__, [counter: 0, line: 15], [:Flat]},
       [do: {:@, [line: 16], [{:moduledoc, [line: 16], ["Flat"]}]}]]}]}
 
+  @moduletag :wip
   describe "only module part" do
+    @tag :wip
     test "module structure" do
       modules = extract_modules(@ast)
       assert [{:Outer, %{modules: [{:Inner, %{modules: [{:Innerst, %{modules: []}}]}},

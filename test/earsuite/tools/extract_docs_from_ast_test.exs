@@ -3,6 +3,8 @@ defmodule Earsuite.Tools.ExtractDocsFromAstTest do
 
   import Earsuite.Ast.Parser, only: [extract_docs_from_ast: 1]
 
+  @moduletag :wip
+
   @empty_module """
   defmodule Empty, do: nil
   """
