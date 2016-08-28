@@ -1,7 +1,7 @@
 defmodule Earsuite.Tools.ExtractModulesTest do
   use ExUnit.Case
 
- import Earsuie.Ast.Parser, only: [extract_modules: 1]
+ import Earsuite.Ast.Parser, only: [extract_modules: 1]
 
   @empty_module """
   defmodule Empty, do: nil

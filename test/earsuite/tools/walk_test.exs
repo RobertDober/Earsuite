@@ -1,4 +1,4 @@
-defmodule Earsuite.Tools.WalkerTest do
+defmodule Earsuite.Tools.WalkTest do
   use ExUnit.Case
 
   import Earsuite.Ast.Walker
@@ -35,9 +35,13 @@ defmodule Earsuite.Tools.WalkerTest do
       assert [{:moduledoc, [line: 2], ["A"]},
        {:doc, [line: 4], ["f"]}] = pre_walk( @ast, [], fn_doc_only ) |> Enum.reverse()
     end
+    test "counting nodes" do 
+      assert 19 = post_walk( @ast, 0, fn_count_nodes )
+      assert 19 = pre_walk( @ast, 0, fn_count_nodes )
+    end
   end
-  test "counting nodes" do 
-    assert 19 = post_walk( @ast, 0, fn_count_nodes )
-    assert 19 = pre_walk( @ast, 0, fn_count_nodes )
+
+  describe "recursive walk" do
+
   end
 end

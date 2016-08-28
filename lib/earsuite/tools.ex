@@ -13,8 +13,11 @@ defmodule Earsuite.Tools do
 
 
     def ast_from_file(file) do
-      with {:ok, ast} <-
-      file |> File.read!() |> Code.string_to_quoted(),
+      file |> File.read!() |> ast_from_string()
+    end
+
+    def ast_from_string(str) do 
+      with {:ok, ast} <- Code.string_to_quoted(str),
       do: ast
     end
 

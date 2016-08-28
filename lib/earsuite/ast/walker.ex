@@ -5,10 +5,10 @@ defmodule Earsuite.Ast.Walker do
   """
 
   @doc """
-  A convinience function to use `Macro.prewalk` with a simple accumulator
+  A convenience function to use `Macro.prewalk` with a simple accumulator
   function. For details refer to the almost symmetrical function `pre_walk`.
 
-  They are behaving identically.
+  They are behaving identically (as we always return the whole ast-node inside `walker`).
   """
   def post_walk( ast, acc, fun) do 
     with {_ast, result} <- Macro.postwalk( ast, acc, walker(fun)),
@@ -16,7 +16,7 @@ defmodule Earsuite.Ast.Walker do
   end
 
   @doc """
-  A convinience function to use `Macro.prewalk` with a simple accumulator
+  A convenience function to use `Macro.prewalk` with a simple accumulator
   function. This is useful where we do not need to construct a new ast, as e.g.
   in writing macros but want to explore or transform the ast for some other
   reasons.

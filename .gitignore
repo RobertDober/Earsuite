@@ -18,3 +18,6 @@ erl_crash.dump
 
 # In case we forget to remove them after `c some_file.ex` in the console.
 *.beam
+
+# Leaving so much rubbish around
+/tmp
