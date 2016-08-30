@@ -35,6 +35,15 @@ defmodule Earsuite.Tools.ExtractDocsFromAstTest do
   defmodule Other do
   end
   """
+  
+  @nested_modules_prime """
+  defmodule Outer do
+    @moduledoc "I am the outer"
+    defmodule Inner do
+      @moduledoc "I am the inner"
+    end
+  end
+  """
   test "no docs" do
     assert %{} == from_string("")
   end
@@ -55,6 +64,11 @@ defmodule Earsuite.Tools.ExtractDocsFromAstTest do
     assert %{"Outer.Inner": %{moduledoc: "I am the inner", docs: [] },
              Other: %{moduledoc: nil, docs: [] },
              Outer: %{moduledoc: "I am the outer", docs: [] }} = from_string @nested_modules
+  end
+
+  test "nested_modules, moduledoc location agnostic" do
+    assert %{"Outer.Inner": %{moduledoc: "I am the inner", docs: [] },
+             Outer: %{moduledoc: "I am the outer", docs: [] }} = from_string @nested_modules_prime
   end
 
   defp from_string code do

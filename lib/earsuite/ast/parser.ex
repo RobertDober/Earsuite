@@ -79,7 +79,9 @@ defmodule Earsuite.Ast.Parser do
 
   defp extract_this_doc(moduleast), do: walk(moduleast, nil, &_extract_this_doc/2)
 
-  defp _extract_this_doc({:@, _, [{:moduledoc, _, [moduledoc]}]}, _acc), do: %Traverse.Cut{acc: moduledoc}
+  defp _extract_this_doc({:@, _, [{:moduledoc, _, [moduledoc]}]}, _acc), do: cut(moduledoc)
+  defp _extract_this_doc( {:defmodule, _, _}, acc), do: cut(acc)
   defp _extract_this_doc(_, _), do: nil
   
+  defp cut(acc), do: %Traverse.Cut{acc: acc}
 end
