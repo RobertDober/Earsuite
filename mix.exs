@@ -32,6 +32,7 @@ defmodule Earsuite.Mixfile do
     [
       {:earmark, "1.0.1"},
       {:floki,  "0.9.0"},
+      {:traverse,  "~> 0.1"},
     ]
   end
 

@@ -3,8 +3,6 @@ defmodule Earsuite.Tools.ExtractDocsFromAstTest do
 
   import Earsuite.Ast.Parser, only: [extract_docs_from_ast: 1]
 
-  @moduletag :wip
-
   @empty_module """
   defmodule Empty, do: nil
   """
@@ -35,25 +33,27 @@ defmodule Earsuite.Tools.ExtractDocsFromAstTest do
     @moduledoc "I am the outer"
   end
   defmodule Other do
-    @moduledoc "I am the other"
   end
   """
-  test "no docs" do 
-    assert [] == from_string("") 
+  test "no docs" do
+    assert [] == from_string("")
   end
 
-  test "still no docs" do 
-    assert [ %{name: :Empty, moduledoc: nil, docs: []}] == from_string(@empty_module)
+  test "still no docs" do
+    assert [ %{name: :Empty, moduledoc: nil, docs: %{}}] == from_string(@empty_module)
   end
 
-  test "documented module" do 
+  test "documented module" do
     assert [%{module: %{name: :Documented, moduledoc: "moduledoc of Documented", docs: [] }}] == from_string @documented_module
   end
-  test "two modules" do 
+  test "two modules" do
     assert [ %{name: :One, moduledoc: nil, docs: []},
              %{name: :Two, moduledoc: "moduledoc of Two", docs: []}] == from_string @two_modules
   end
 
+  test "nested_modules, correct module structure" do
+    assert [ %{name: :Outer}, %{name: :Inner}, %{name: :Other} ] = from_string @nested_modules
+  end
   defp from_string code do
     with {:ok, ast} <- Code.string_to_quoted(code),
     do:
