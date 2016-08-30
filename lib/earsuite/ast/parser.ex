@@ -49,22 +49,32 @@ defmodule Earsuite.Ast.Parser do
   #      [{:__aliases__, [counter: 0, line: 7], [:Other]}, [do: nil]]}]}
   #
   def extract_docs_from_ast(nil), do: []
-  def extract_docs_from_ast(ast) do 
+  def extract_docs_from_ast(ast) do
     ast
     |> extract_modules()
-    |> List.flatten()
-    |> Enum.reverse()
-    # |> Enum.filter_map(&filter_module?/1, &parse_module/1)
   end
 
   def extract_modules(ast) do
     # walk( ast, [], Traverse.Tools.make_trace_fn(&_extract_modules/2) )
-    walk( ast, [], &_extract_modules/2 )
+    walk( ast, %{}, &_extract_modules/2 )
   end
 
   @spec _extract_modules( any, any ) :: any
   defp _extract_modules( node, acc )
-  defp _extract_modules( {:defmodule, _, [{:__aliases__, _, [module_name]} | _ ] }, acc ),
-    do: [ %{name: module_name} | acc ] dafezafez  
+  defp _extract_modules( {:defmodule, _, [{:__aliases__, _, [module_name]} | module_ast ] }, acc ) do
+    submodules = extract_modules( module_ast )
+    thisdoc    = extract_this_doc( module_ast )
+    %Traverse.Cut{acc: 
+     Map.merge( acc, submodules )
+     |> Map.put( module_name, thisdoc )
+    }
+  end
   defp _extract_modules(_, acc), do: acc
+
+
+  defp extract_this_doc(moduleast), do: walk(moduleast, nil, &_extract_this_doc/2)
+
+  defp _extract_this_doc({:@, _, [{:moduledoc, _, [moduledoc]}]}, _acc), do: %Traverse.Cut{acc: moduledoc}
+  defp _extract_this_doc(_, _), do: nil
+  
 end

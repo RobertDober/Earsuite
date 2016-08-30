@@ -52,7 +52,8 @@ defmodule Earsuite.Tools.ExtractDocsFromAstTest do
   end
 
   test "nested_modules, correct module structure" do
-    assert [ %{name: :Outer}, %{name: :Inner}, %{name: :Other} ] = from_string @nested_modules
+    assert %{Inner: "I am the inner", Other: nil, Outer: "I am the outer"} =
+      from_string @nested_modules
   end
   defp from_string code do
     with {:ok, ast} <- Code.string_to_quoted(code),
