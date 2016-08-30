@@ -65,6 +65,6 @@ defmodule Earsuite.Ast.Parser do
   @spec _extract_modules( any, any ) :: any
   defp _extract_modules( node, acc )
   defp _extract_modules( {:defmodule, _, [{:__aliases__, _, [module_name]} | _ ] }, acc ),
-    do: [ %{name: module_name} | acc ] dafezafez 
+    do: [ %{name: module_name} | acc ] dafezafez  
   defp _extract_modules(_, acc), do: acc
 end
