@@ -48,28 +48,33 @@ defmodule Earsuite.Ast.Parser do
   #    {:defmodule, [line: 7],
   #      [{:__aliases__, [counter: 0, line: 7], [:Other]}, [do: nil]]}]}
   #
-  def extract_docs_from_ast(nil), do: []
+  @spec extract_docs_from_ast( any ) :: map
+  def extract_docs_from_ast(nil), do: %{}
   def extract_docs_from_ast(ast) do
     ast
     |> extract_modules()
   end
 
-  def extract_modules(ast) do
+  def extract_modules(ast, prefices \\ []) do
     # walk( ast, [], Traverse.Tools.make_trace_fn(&_extract_modules/2) )
-    walk( ast, %{}, &_extract_modules/2 )
+    walk( ast, %{}, &(_extract_modules(&1, &2, prefices)) )
   end
 
-  @spec _extract_modules( any, any ) :: any
-  defp _extract_modules( node, acc )
-  defp _extract_modules( {:defmodule, _, [{:__aliases__, _, [module_name]} | module_ast ] }, acc ) do
-    submodules = extract_modules( module_ast )
+  @spec _extract_modules( any, any, list ) :: any
+  defp _extract_modules( node, acc, prefices \\ [] )
+  defp _extract_modules( {:defmodule, _, [{:__aliases__, _, [module_name]} | module_ast ] }, acc, prefices ) do
+    submodules = extract_modules( module_ast, [module_name | prefices] )
     thisdoc    = extract_this_doc( module_ast )
+    thismodulekey = [module_name | prefices]
+                    |> Enum.reverse()
+                    |> Enum.join( "." )
+                    |> String.to_atom()
     %Traverse.Cut{acc: 
-     Map.merge( acc, submodules )
-     |> Map.put( module_name, thisdoc )
+      Map.merge( acc, submodules )
+      |> Map.put( thismodulekey, %{moduledoc: thisdoc, docs: []} )
     }
   end
-  defp _extract_modules(_, acc), do: acc
+  defp _extract_modules(_, acc, _), do: acc
 
 
   defp extract_this_doc(moduleast), do: walk(moduleast, nil, &_extract_this_doc/2)
