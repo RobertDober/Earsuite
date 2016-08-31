@@ -43,7 +43,7 @@ defmodule Earsuite.Tools.DocExtraction.FunctionDocsTest do
           "  def #{name}, do: :#{name}" ] end)
     |> Enum.join("\n")
   end
-  defp make_module_code options \\ [] do 
+  defp make_module_code options do 
     options = Keyword.merge([
       moduledoc: nil,
       functions: [one: true],
