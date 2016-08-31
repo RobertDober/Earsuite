@@ -21,7 +21,7 @@ Either into `specs/Markdown/<Your Dir>` or  `specs/Code/<Your Dir>`
 
 1. Run `mix make_specs <Your Dir>`
 This will add a `.html` file for each `.md` file in your `specs/Markdown/<Your Dir>/` and
-it will extract all docstrings from your `specs
+it will extract all docstrings from your `.ex` files in `specs/Code/<Your Dir>`, but see [How Docstrings Are Extracted](#how-docstrings-are-extracted) below.
 
 
 You can only add tests that **pass** in the current version of `Earsuite` implying a certain version for `Earmark` 
@@ -73,6 +73,10 @@ by running
 
     mix escript.build
     ./earsuite
+
+##### How Docstrings Are Extracted
+
+When compiling elixir files it is relatively easy to access the docstrings from...
 
 ### Earmark Acceptance Test
 
