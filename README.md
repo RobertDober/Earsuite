@@ -4,11 +4,33 @@ An Acceptance and Non Regression Test Suite for [Earmark](https://github.com/pra
 
 [![Build Status](https://travis-ci.org/RobertDober/Earsuite.svg?branch=master)](https://travis-ci.org/RobertDober/earsuite)
 
-## Usage
+## Quick Starting Guide
 
 Pull requests are the suggested means to add test cases.
 
-### Adding your own tests
+Here is how to do it.
+
+You can only add tests that **pass** in the current version of `Earsuite` implying a certain version for `Earmark`.
+
+Add your specs inside your existing or to be created subdir inside  the `specs` directory. As soon as you are in there
+you can use a dir tree almost as wild, strutured or unstructured as you want.
+
+For simplicity and the advantage of avoiding any naming conflicts we will only merge PRs where the name of the specs subdirectory
+matches the Github name of the author of the PR.
+
+That is `specs/<spec_type>/<github_name>`  where `<spec_type>` can be `Markdown` or `Code` 
+
+From now on we will refer to these as `<Your Dirs>`.
+
+Once you have deposited your Markdown and/or Elixir files you can run the mix task `mix make_specs <Your Dirs>` to generate a set of html files.
+
+Make sure that `mix test` still passes, if that is not the case, please open an issue for it (in `Earsuite`).
+
+## More Detailed Description
+
+### Spec Extracttion
+
+This is what will be done when you run `mix make_specs <Your Dirs>`
 
 At first note that no `.html` file will be overwritten by this task, you need to erase them manually if you want to create a new
 set of tests.
@@ -23,16 +45,6 @@ Either into `specs/Markdown/<Your Dir>` or  `specs/Code/<Your Dir>`
 This will add a `.html` file for each `.md` file in your `specs/Markdown/<Your Dir>/` and
 it will extract all docstrings from your `.ex` files in `specs/Code/<Your Dir>`, but see [How Docstrings Are Extracted](#how-docstrings-are-extracted) below.
 
-
-You can only add tests that **pass** in the current version of `Earsuite` implying a certain version for `Earmark` 
-
-
-Add your specs inside your existing or to be created subdur inside  the `specs` directory. As soon as you are in there
-you can use a dir tree almost as wild, strutured or unstructured as you want.
-
-For simplicity and the advantage of avoiding any naming conflicts I will only merge PRs where the name of the specs subdirectory
-matches the Github name of the author of the PR.
-That is `specs/<spec_type>/<github_name>`  where `<spec_type>` can be `Markdown` or `Code` 
 
 Once you have your subdir structure worked out, all you need to do is to add specs.
 
