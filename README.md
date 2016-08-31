@@ -11,12 +11,10 @@ Pull requests are the suggested means to add test cases.
 ### Adding your own tests
 
 1. Depose your _Markdown_ or _Elixir_ files
+  Either into `specs/Markdown/<Your Dir>` or  `specs/Code/<Your Dir>`
 
-Either into `specs/Markdown/&lt;Your Dir>` or  `specs/Code/&lt;Your Dir>`
-
-1. Run `mix make_specs &lt;Your Dir>`
-
-This will add a `.html` file for each `.md` file in your `specs/Markdown/&lt;Your Dir>/`
+1. Run `mix make_specs <Your Dir>`
+  This will add a `.html` file for each `.md` file in your `specs/Markdown/<Your Dir>/`
 
 
 You can only add tests that **pass** in the current version of `Earsuite` implying a certain version for `Earmark` 
