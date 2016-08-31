@@ -1,4 +1,5 @@
-defmodule Earsuite.Tools.ExtractDocsFromAstTest do
+defmodule Earsuite.Tools.DocExtraction.ModuleDocsTest do
+  
   use ExUnit.Case
 
   import Earsuite.Ast.Parser, only: [extract_docs_from_ast: 1]
@@ -49,26 +50,26 @@ defmodule Earsuite.Tools.ExtractDocsFromAstTest do
   end
 
   test "still no docs" do
-    assert %{Empty: %{moduledoc: nil, docs: []}} == from_string(@empty_module)
+    assert %{Empty: %{moduledoc: nil, docs: %{}}} == from_string(@empty_module)
   end
 
   test "documented module" do
-    assert %{Documented: %{moduledoc: "moduledoc of Documented", docs: [] }} == from_string @documented_module
+    assert %{Documented: %{moduledoc: "moduledoc of Documented", docs: %{} }} == from_string @documented_module
   end
   test "two modules" do
-    assert %{One: %{moduledoc: nil, docs: [] },
-             Two: %{moduledoc: "moduledoc of Two", docs: [] }} == from_string @two_modules
+    assert %{One: %{moduledoc: nil, docs: %{} },
+             Two: %{moduledoc: "moduledoc of Two", docs: %{} }} == from_string @two_modules
   end
 
   test "nested_modules, correct module structure" do
-    assert %{"Outer.Inner": %{moduledoc: "I am the inner", docs: [] },
-             Other: %{moduledoc: nil, docs: [] },
-             Outer: %{moduledoc: "I am the outer", docs: [] }} = from_string @nested_modules
+    assert %{"Outer.Inner": %{moduledoc: "I am the inner", docs: %{} },
+             Other: %{moduledoc: nil, docs: %{} },
+             Outer: %{moduledoc: "I am the outer", docs: %{} }} = from_string @nested_modules
   end
 
   test "nested_modules, moduledoc location agnostic" do
-    assert %{"Outer.Inner": %{moduledoc: "I am the inner", docs: [] },
-             Outer: %{moduledoc: "I am the outer", docs: [] }} = from_string @nested_modules_prime
+    assert %{"Outer.Inner": %{moduledoc: "I am the inner", docs: %{} },
+             Outer: %{moduledoc: "I am the outer", docs: %{} }} = from_string @nested_modules_prime
   end
 
   defp from_string code do
