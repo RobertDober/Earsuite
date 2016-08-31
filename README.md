@@ -10,11 +10,18 @@ Pull requests are the suggested means to add test cases.
 
 ### Adding your own tests
 
+At first note that no `.html` file will be overwritten by this task, you need to erase them manually if you want to create a new
+set of tests.
+
+A task to do so shall be provided in the future but something like `find specs/{Code,Markdown}/<Your Dir> -name "*.html" -exec rm {} \;` shall
+do the job, depending on your shell of course and if your tree exists in both `Code` **and** `Markdown`.
+
 1. Depose your _Markdown_ or _Elixir_ files
-  Either into `specs/Markdown/<Your Dir>` or  `specs/Code/<Your Dir>`
+Either into `specs/Markdown/<Your Dir>` or  `specs/Code/<Your Dir>`
 
 1. Run `mix make_specs <Your Dir>`
-  This will add a `.html` file for each `.md` file in your `specs/Markdown/<Your Dir>/`
+This will add a `.html` file for each `.md` file in your `specs/Markdown/<Your Dir>/` and
+it will extract all docstrings from your `specs
 
 
 You can only add tests that **pass** in the current version of `Earsuite` implying a certain version for `Earmark` 
