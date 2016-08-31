@@ -4,6 +4,10 @@ An Acceptance and Non Regression Test Suite for [Earmark](https://github.com/pra
 
 [![Build Status](https://travis-ci.org/RobertDober/Earsuite.svg?branch=master)](https://travis-ci.org/RobertDober/earsuite)
 
+## Still Work In Progress
+
+the below described workflow is not yet implemented...
+
 ## Quick Starting Guide
 
 Pull requests are the suggested means to add test cases.
@@ -20,9 +24,9 @@ matches the Github name of the author of the PR.
 
 That is `specs/<spec_type>/<github_name>`  where `<spec_type>` can be `Markdown` or `Code` 
 
-From now on we will refer to these as `<Your Dirs>`.
+Once you have deposited your Markdown and/or Elixir files you can run the mix task `mix make_specs <github_name>` to generate a set of html files.
 
-Once you have deposited your Markdown and/or Elixir files you can run the mix task `mix make_specs <Your Dirs>` to generate a set of html files.
+**N.B.** Do not run the task on ELixir files you do not trust. See [for details](#how-docstrings-are-extracted).
 
 Make sure that `mix test` still passes, if that is not the case, please open an issue for it (in `Earsuite`).
 
@@ -30,25 +34,31 @@ Make sure that `mix test` still passes, if that is not the case, please open an 
 
 ### Spec Extracttion
 
-This is what will be done when you run `mix make_specs <Your Dirs>`
+This is what will be done when you run `mix make_specs <github_name>` and will create _Specs_. In the `specs/Markdown` subtree everything is
+really simple. A _Spec_ is a pair of  a Markdown `.md` and an HTML `.html` file.
 
-At first note that no `.html` file will be overwritten by this task, you need to erase them manually if you want to create a new
-set of tests.
-
-A task to do so shall be provided in the future but something like `find specs/{Code,Markdown}/<Your Dir> -name "*.html" -exec rm {} \;` shall
-do the job, depending on your shell of course and if your tree exists in both `Code` **and** `Markdown`.
+Inside the `specs/Code/<github_name
 
 1. Depose your _Markdown_ or _Elixir_ files
-Either into `specs/Markdown/<Your Dir>` or  `specs/Code/<Your Dir>`
+Either into `specs/Markdown/<github_name>` or  `specs/Code/<github_name>`
 
-1. Run `mix make_specs <Your Dir>`
+1. Run `mix make_specs <github_name>`
 This will add a `.html` file for each `.md` file in your `specs/Markdown/<Your Dir>/` and
 it will extract all docstrings from your `.ex` files in `specs/Code/<Your Dir>`, but see [How Docstrings Are Extracted](#how-docstrings-are-extracted) below.
 
 
 Once you have your subdir structure worked out, all you need to do is to add specs.
 
-A spec is simply a pair of a Markdown `.md` and an HTML `.html` file or a pair of Elixir code `.ex` and HTML `.html`.
+
+#### Specs Clobbering
+
+The mix task `make_specs` never clobbers any html files.
+
+You need to erase them manually if you want to create a new
+set of tests.
+
+A task to do so shall be provided in the future but something like `find specs/{Code,Markdown}/<github_name> -name "*.html" -exec rm {} \;` shall
+do the job, depending on your shell of course and if your tree exists in both `Code` **and** `Markdown`.
 
 Typically we will have a layout like the following
 
