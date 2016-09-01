@@ -26,8 +26,6 @@ That is `specs/<spec_type>/<github_name>`  where `<spec_type>` can be `Markdown`
 
 Once you have deposited your Markdown and/or Elixir files you can run the mix task `mix make_specs <github_name>` to generate a set of html files.
 
-**N.B.** Do not run the task on ELixir files you do not trust. See [for details](#how-docstrings-are-extracted).
-
 Make sure that `mix test` still passes, if that is not the case, please open an issue for it (in `Earsuite`).
 
 ## More Detailed Description
@@ -98,7 +96,25 @@ by running
 
 ##### How Docstrings Are Extracted
 
-When compiling elixir files it is relatively easy to access the docstrings from...
+When compiling elixir files it is relatively easy to access the docstrings from the resulting objects, however it is not safe. Imagine the following code
+
+```elixir
+
+defmodule Inject do
+  invocation_of_unsecure_function
+end
+```
+
+Therefore docstrings are extracted from the AST which is created by means of invocation of `Code.quoted_to_string`, which only tokenizes the Elixir files
+without compiling them.
+
+This, however, imposes an important restriction. Docstrings containing interpolations as, e.g.
+
+```elixir
+    @moduledoc "#{danger(:Will, :Robinson)}"
+```
+
+will not be extracted.
 
 ### Earmark Acceptance Test
 
