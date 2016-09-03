@@ -140,7 +140,7 @@ defmodule Earsuite.Ast.Parser do
 
   defp extract_this_doc(moduleast), do: walk(moduleast, nil, &_extract_this_doc/2)
 
-  defp _extract_this_doc({:@, _, [{:moduledoc, _, [{:sigil_s, _, [{:<<>>, _, [moduledoc]}, _]}]}]}, acc ),
+  defp _extract_this_doc({:@, _, [{:moduledoc, _, [{:sigil_s, _, [{:<<>>, _, [moduledoc]}, _]}]}]}, _acc ),
    do: cut(moduledoc)
   defp _extract_this_doc({:@, _, [{:moduledoc, _, [moduledoc]}]}, _acc), do: cut(moduledoc)
   defp _extract_this_doc( {:defmodule, _, _}, acc), do: cut(acc)

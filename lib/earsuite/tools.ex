@@ -1,6 +1,7 @@
 defmodule Earsuite.Tools do
 
     @default_spec_dir "specs/Markdown"
+    @elixir_rgx       ~r{\.exs?$}
     @markdown_rgx     ~r{\.md$}
 
     @doc false
@@ -40,9 +41,9 @@ defmodule Earsuite.Tools do
     end
 
     @doc """
-    Find all files matching `~r{\.md$}` recursively in `dir`
+    Find all files matching `~r{\.md|\.exs?$}` recursively in `dir`
     """
-    def find_md_files(dir \\ @default_spec_dir) do
+    def find_source_files(dir) do
       find_files_in_dir(dir, @markdown_rgx)
     end
 
@@ -53,18 +54,24 @@ defmodule Earsuite.Tools do
       Stream.map(file_stream, assoc_fun)
     end
 
-    def associate_html_file(md_file) do
-      Regex.replace(@markdown_rgx, md_file, ".html")
+    def associated_file(source_file) do
+      cond do
+        elixir_file?(source_file)   -> Regex.replace(@elixir_rgx, source_file, ".md")
+        markdown_file?(source_file) -> Regex.replace(@markdown_rgx, source_file, ".html")
+      end
     end
 
-    def find_spec_pairs(dir \\ @default_spec_dir) do
-      find_md_files(dir)
+    def find_specs(dir) do
+      find_source_files(dir)
       |> associate_files(&make_spec_pair/1)
     end
 
     def make_spec_pair(file) do
-      with alt_file = file |> associate_html_file(),
+      with alt_file = file |> associated_file(),
       do:
         {file, File.exists?(alt_file) && alt_file}
     end
+
+    defp elixir_file?(fun), do: Regex.match?( @elixir_rgx, fun)
+    defp markdown_file?(fun), do: Regex.match?( @markdown_rgx, fun)
 end

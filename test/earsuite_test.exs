@@ -2,13 +2,14 @@ defmodule EarsuiteTest do
   use ExUnit.Case
   doctest Earsuite
 
-  import Earsuite.Tools, only: [find_spec_pairs: 0]
+  import Earsuite.Tools, only: [find_specs: 1]
   import Support.RunSpecs
 
+  @moduletag :earmark_regression
   # TODO: Filter html_file false in find_spec_pairs()
-  find_spec_pairs()
-  |> Enum.each(fn {_, false} -> nil
-                  {md_file, html_file} ->
+  find_specs("specs") 
+  |> Enum.each(fn {_, _, false} -> nil
+                  {_, md_file, html_file} ->
     test md_file do
       # FIXME:
       # This needs to become an intelligent, modifiabel structural comparision
