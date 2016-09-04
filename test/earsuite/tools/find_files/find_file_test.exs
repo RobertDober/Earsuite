@@ -1,7 +1,7 @@
 defmodule Earsuite.Tools.FindFileTest do
   use ExUnit.Case
 
-  import Earsuite.Tools, only: [find_files_in_dir: 2, find_source_files: 1]
+  import Earsuite.Tools, only: [find_files_in_dir: 2]
 
   @fixture_dir "test/fixtures/find_files"
 
