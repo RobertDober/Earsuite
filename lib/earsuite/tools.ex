@@ -65,12 +65,38 @@ defmodule Earsuite.Tools do
     def find_specs(dir) do
       find_source_files(dir)
       |> associate_files(&make_spec_tuple/1)
+      |> Enum.uniq()
+      |> Enum.sort()
     end
 
     def make_spec_tuple(file) do
-      with alt_file = file |> associated_file(),
-      do:
-        {file, File.exists?(alt_file) && alt_file}
+      cond do
+        elixir_file?(file)   -> make_spec_from_ex(file)
+        markdown_file?(file) -> make_spec_from_md(file)
+      end
+    end
+
+    defp make_spec_from_ex(ex_file) do
+      md_file   = ex_file |> associated_file() |> if_existing_file() 
+      html_file = ex_file |> associated_file() |> associated_file() |> if_existing_file()
+      {ex_file, md_file, html_file}
+    end
+
+    defp make_spec_from_md(md_file) do
+      ex_file   = find_source_for_md(md_file)
+      html_file = md_file |> associated_file() |> if_existing_file()
+      {ex_file, md_file, html_file}
+    end
+
+    defp if_existing_file(fun), do: if(File.exists?(fun), do: fun)
+
+    defp find_source_for_md(md_file) do
+      ex_file = Regex.replace(@markdown_rgx, md_file, ".ex")
+      exs_file = Regex.replace(@markdown_rgx, md_file, ".exs")
+      cond do 
+        File.exists?(ex_file) -> ex_file
+        true -> if File.exists?(exs_file), do: exs_file
+      end
     end
 
     defp elixir_file?(fun), do: Regex.match?( @elixir_rgx, fun)

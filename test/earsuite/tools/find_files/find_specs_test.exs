@@ -3,12 +3,22 @@ defmodule Earsuite.Tools.FindFiles.FindSpecsTest do
   
   import Earsuite.Tools, only: [find_specs: 1]
 
-  @fixture_dir "test/fixtures/find_files"
+  @fixture_dir "test/fixtures/matchings"
 
   describe "triples returned by find_specs" do
     test "all" do 
-      expected = [{"base.ex", nil, "base.html"}, {"base1.exs", nil, nil}] |> normalize_result()
+      expected = [
+        {nil, "level1/md_and_html.md", "level1/md_and_html.html"},
+        {nil, "level1/only_md.md", nil},
+        {"base.ex", nil, "base.html"}, 
+        {"base1.exs", nil, nil},
+        {"level1/level2/all_three.ex", "level1/level2/all_three.md", "level1/level2/all_three.html"}
+      ] |> normalize_result()
       assert expected == specs(@fixture_dir)
+    end
+
+    test "exs only" do 
+      
     end
   end
 

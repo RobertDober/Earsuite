@@ -22,21 +22,6 @@ defmodule Earsuite.Tools.FindFileTest do
     end
   end
 
-  describe "find_source_files" do
-    test "empty" do 
-      assert [] == sources("#{@fixture_dir}/level1/empty")
-    end
-    test "sources at level1" do 
-      expected = ~w(level1/elixir.ex level1/markdown.md) |> normalized_result()
-      assert expected == sources("#{@fixture_dir}/level1") |> Enum.sort()
-    end
-    test "all sources" do 
-      expected =
-        ~w(base.ex base1.exs level1/elixir.ex level1/markdown.md) |> normalized_result()
-      assert expected == sources(@fixture_dir) |> Enum.sort()
-    end
-
-  end
 
   defp find rgx do
     find_files_in_dir(@fixture_dir, rgx)
@@ -49,8 +34,4 @@ defmodule Earsuite.Tools.FindFileTest do
     |> Enum.map(fn f -> [@fixture_dir, f] |> Enum.join("/") end)
   end
 
-  defp sources(dir) do
-    find_source_files(dir)
-    |> Enum.sort()
-  end
 end
