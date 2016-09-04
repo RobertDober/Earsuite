@@ -1,7 +1,7 @@
 defmodule Earsuite.Tools.FindFileTest do
   use ExUnit.Case
 
-  import Earsuite.Tools, only: [find_files_in_dir: 2]
+  import Earsuite.Tools, only: [find_files_in_dir: 2, find_source_files: 1]
 
   @fixture_dir "test/fixtures/find_files"
 
@@ -13,12 +13,27 @@ defmodule Earsuite.Tools.FindFileTest do
     end
     test "check missed hits above are present" do 
       expected = 
-        ~w(base.ex base1.exs base.html base2.html wild.md.not level1/other level1/other.html level1/elixir.ex level1/markdown.md)
+        ~w(base.ex base1.exs base.html base2.html wild.md.not level1/other level1/other.html level1/elixir.ex level1/empty/.gitkeep level1/markdown.md)
         |> normalized_result()
       assert expected == find(~r{.})
     end
     test "negative" do
       assert [] == find(~r{xxx})
+    end
+  end
+
+  describe "find_source_files" do
+    test "empty" do 
+      assert [] == sources("#{@fixture_dir}/level1/empty")
+    end
+    test "sources at level1" do 
+      expected = ~w(level1/elixir.ex level1/markdown.md) |> normalized_result()
+      assert expected == sources("#{@fixture_dir}/level1") |> Enum.sort()
+    end
+    test "all sources" do 
+      expected =
+        ~w(base.ex base1.exs level1/elixir.ex level1/markdown.md) |> normalized_result()
+      assert expected == sources(@fixture_dir) |> Enum.sort()
     end
 
   end
@@ -34,4 +49,8 @@ defmodule Earsuite.Tools.FindFileTest do
     |> Enum.map(fn f -> [@fixture_dir, f] |> Enum.join("/") end)
   end
 
+  defp sources(dir) do
+    find_source_files(dir)
+    |> Enum.sort()
+  end
 end

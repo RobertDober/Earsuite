@@ -3,6 +3,7 @@ defmodule Earsuite.Tools do
     @default_spec_dir "specs"
     @elixir_rgx       ~r{\.exs?$}
     @markdown_rgx     ~r{\.md$}
+    @source_rgx       ~r{\.exs?$|\.md$}
 
     @doc false
     def emit_colorized ansi_and_bins do
@@ -44,7 +45,7 @@ defmodule Earsuite.Tools do
     Find all files matching `~r{\.md|\.exs?$}` recursively in `dir`
     """
     def find_source_files(dir) do
-      find_files_in_dir(dir, @markdown_rgx)
+      find_files_in_dir(dir, @source_rgx)
     end
 
     @doc """
