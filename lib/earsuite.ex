@@ -5,6 +5,7 @@ defmodule Earsuite do
   @type maybe_filename :: binary | nil
 
   @doc """
+  Entry function of the homonymous mix task.
   """
   @spec make_specs( String.t() ) :: boolean()
   def make_specs(from_path) do

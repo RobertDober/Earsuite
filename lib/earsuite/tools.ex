@@ -1,6 +1,6 @@
 defmodule Earsuite.Tools do
 
-    @default_spec_dir "specs/Markdown"
+    @default_spec_dir "specs"
     @elixir_rgx       ~r{\.exs?$}
     @markdown_rgx     ~r{\.md$}
 
@@ -63,10 +63,10 @@ defmodule Earsuite.Tools do
 
     def find_specs(dir) do
       find_source_files(dir)
-      |> associate_files(&make_spec_pair/1)
+      |> associate_files(&make_spec_tuple/1)
     end
 
-    def make_spec_pair(file) do
+    def make_spec_tuple(file) do
       with alt_file = file |> associated_file(),
       do:
         {file, File.exists?(alt_file) && alt_file}
