@@ -30,19 +30,20 @@ Make sure that `mix test` still passes, if that is not the case, please open an 
 
 ## More Detailed Description
 
-### Spec Extracttion
+### Spec Extraction
 
-This is what will be done when you run `mix make_specs <github_name>` and will create _Specs_. In the `specs/Markdown` subtree everything is
-really simple. A _Spec_ is a pair of  a Markdown `.md` and an HTML `.html` file.
+This is what will be done when you run `mix make_specs <github_name>` and will create _Specs_. In the `specs/<github_name>/Markdown` subtree everything is
+really simple. A _Spec_ is a pair of  a Markdown `.md` and an HTML `.html` file. And if the html does not exist it will be created by means of the current
+version of `Earmark`.
 
-Inside the `specs/Code/<github_name
+Inside the `specs/<github_name>/Code` directory things are slightly more complicated, we have a tripple of an Elixir `.exs?`, Markdown and HTML file. Again, if the
+Markdown **and** the HTML file do not exist they will be created in two steps.
 
-1. Depose your _Markdown_ or _Elixir_ files
-Either into `specs/Markdown/<github_name>` or  `specs/Code/<github_name>`
+1. Extraction of the Markdown from the Elixir File
+The Elixir File is parsed into its AST representation via `Code.string_to_ast` and then `@moduledoc` and `@doc` strings are extracted into a Markdown file which then is treated in the second step.
+If interested in the details of this process, see [How Docstrings Are Extracted](#how-docstrings-are-extracted) below.
 
-1. Run `mix make_specs <github_name>`
-This will add a `.html` file for each `.md` file in your `specs/Markdown/<Your Dir>/` and
-it will extract all docstrings from your `.ex` files in `specs/Code/<Your Dir>`, but see [How Docstrings Are Extracted](#how-docstrings-are-extracted) below.
+1. The Markdown file is converted to an HTML file with the current version of `Earmark`, exactly like inside the `Markdown` subdirectory.
 
 
 Once you have your subdir structure worked out, all you need to do is to add specs.

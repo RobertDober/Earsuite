@@ -1,11 +1,10 @@
-defmodule EarsuiteTest do
+defmodule EarmarkRegression.EarsuiteTest do
   use ExUnit.Case
   doctest Earsuite
 
   import Earsuite.Tools, only: [find_specs: 1]
   import Support.RunSpecs
 
-  @moduletag :earmark_regression
   # TODO: Filter html_file false in find_spec_pairs()
   find_specs("specs") 
   |> Enum.each(fn {_, _, nil} -> nil

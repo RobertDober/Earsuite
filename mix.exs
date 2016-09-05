@@ -37,6 +37,7 @@ defmodule Earsuite.Mixfile do
       {:floki,  "0.9.0"},
       {:traverse,  "~> 0.1"},
       {:excoveralls, "~> 0.5", only: :test},
+      {:mock, "~> 0.1", only: :test},
     ]
   end
 
