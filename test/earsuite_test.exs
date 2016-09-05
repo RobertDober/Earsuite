@@ -8,7 +8,8 @@ defmodule EarsuiteTest do
   @moduletag :earmark_regression
   # TODO: Filter html_file false in find_spec_pairs()
   find_specs("specs") 
-  |> Enum.each(fn {_, _, false} -> nil
+  |> Enum.each(fn {_, _, nil} -> nil
+                  {_, nil, _}   -> nil
                   {_, md_file, html_file} ->
     test md_file do
       # FIXME:

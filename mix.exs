@@ -10,6 +10,8 @@ defmodule Earsuite.Mixfile do
      elixirc_paths:   elixirc_paths(Mix.env),
      build_embedded:  Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     test_coverage: [tool: ExCoveralls],
+     preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
      deps: deps()]
   end
 
@@ -34,6 +36,7 @@ defmodule Earsuite.Mixfile do
       {:earmark, "1.0.1"},
       {:floki,  "0.9.0"},
       {:traverse,  "~> 0.1"},
+      {:excoveralls, "~> 0.5", only: :test},
     ]
   end
 

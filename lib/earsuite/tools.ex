@@ -44,8 +44,10 @@ defmodule Earsuite.Tools do
     @doc """
     Find all files matching `~r{\.md|\.exs?$}` recursively in `dir`
     """
-    def find_source_files(dir) do
+    def find_sources(dir) do
       find_files_in_dir(dir, @source_rgx)
+      |> Enum.map(Fn.Regex.replace_with(@source_rgx,"."))
+      |> Enum.uniq()
     end
 
     @doc """
@@ -63,41 +65,31 @@ defmodule Earsuite.Tools do
     end
 
     def find_specs(dir) do
-      find_source_files(dir)
-      |> associate_files(&make_spec_tuple/1)
-      |> Enum.uniq()
-      |> Enum.sort()
+      find_sources(dir)
+      |> Enum.map(&make_spec_tuple/1)
     end
 
-    def make_spec_tuple(file) do
-      cond do
-        elixir_file?(file)   -> make_spec_from_ex(file)
-        markdown_file?(file) -> make_spec_from_md(file)
-      end
+    def make_spec_tuple(file_stub) do
+      {elixir_file_stub(file_stub), markdown_file_stub(file_stub), html_file_stub(file_stub)}
     end
 
-    defp make_spec_from_ex(ex_file) do
-      md_file   = ex_file |> associated_file() |> if_existing_file() 
-      html_file = ex_file |> associated_file() |> associated_file() |> if_existing_file()
-      {ex_file, md_file, html_file}
-    end
 
-    defp make_spec_from_md(md_file) do
-      ex_file   = find_source_for_md(md_file)
-      html_file = md_file |> associated_file() |> if_existing_file()
-      {ex_file, md_file, html_file}
-    end
-
-    defp if_existing_file(fun), do: if(File.exists?(fun), do: fun)
-
-    defp find_source_for_md(md_file) do
-      ex_file = Regex.replace(@markdown_rgx, md_file, ".ex")
-      exs_file = Regex.replace(@markdown_rgx, md_file, ".exs")
+    defp elixir_file(file_stub) do
+      ex_file  = "#{file_stub}ex"
+      exs_file = "#{file_stub}exs"
       cond do 
-        File.exists?(ex_file) -> ex_file
-        true -> if File.exists?(exs_file), do: exs_file
+        ex_name = if_existing_file(ex_file) -> ex_name
+        true                                -> if_existing_file(exs_file)
       end
     end
+
+    defp html_file(file_stub), do:
+      if_existing_file("#{file_stub}html")
+
+    defp markdown_file(file_stub), do:
+      if_existing_file("#{file_stub}md")
+
+    defp if_existing_file(filename), do: if(File.exists?(filename), do: filename)
 
     defp elixir_file?(fun), do: Regex.match?( @elixir_rgx, fun)
     defp markdown_file?(fun), do: Regex.match?( @markdown_rgx, fun)
