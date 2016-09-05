@@ -73,7 +73,7 @@ This, however, imposes an important restriction. Docstrings containing interpola
     @moduledoc "#{danger(:Will, :Robinson)}"
 ```
 
-will not be extracted.
+will be extracted partially only.
 
 ### Earmark Acceptance Test
 
@@ -81,12 +81,18 @@ Change `mix.exs` to point `Earmark` to the local version to acceptance test, e.g
     
     {:earmark, path: "/home/robert/git/earmark"},
 
-and simply run the tests
+or a newly published version if you want to crosscheck against a new `Earmark` version
 
+    {:earmark, "new version"},
+
+And then run the tests, actually it is sufficient to run only the Earmark Regression Tests
+
+    mix test/earmark_regression
 
 ## How it (does/will) work?
 
-Whenever `mix test` is run, the Markdown files will be converted to html and structurally compared to the associated HTML files.
+Whenever `mix test` or `mix test/earmark_regression` is run, the Markdown files will be converted to html and structurally compared to the associated HTML files, that have been
+generated with the reference version of `Earmark`.
 
 And that is the hard part I am going to work on, especially to make head and tails of the diffs ....
 
