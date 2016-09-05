@@ -8,12 +8,12 @@ defmodule Earsuite.Tools.FindFileTest do
   describe "find_files_in_dir (testing correct application of Erlang's filelib)" do
     test "complex regex" do 
       expected = 
-        ~w(base.ex base1.exs level1/elixir.ex level1/markdown.md) |> normalized_result()
+        ~w(base.ex base1.exs both.ex both.exs both.md level1/elixir.ex level1/markdown.md) |> normalized_result()
       assert expected == find(~r{\.md$|\.exs?$}) 
     end
     test "check missed hits above are present" do 
       expected = 
-        ~w(base.ex base1.exs base.html base2.html wild.md.not level1/other level1/other.html level1/elixir.ex level1/empty/.gitkeep level1/markdown.md)
+        ~w(base.ex base1.exs base.html base2.html both.ex both.exs both.md wild.md.not level1/other level1/other.html level1/elixir.ex level1/empty/.gitkeep level1/markdown.md)
         |> normalized_result()
       assert expected == find(~r{.})
     end

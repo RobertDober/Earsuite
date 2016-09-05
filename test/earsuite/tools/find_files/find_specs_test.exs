@@ -12,7 +12,9 @@ defmodule Earsuite.Tools.FindFiles.FindSpecsTest do
         {nil, "level1/only_md.md", nil},
         {"base.ex", nil, "base.html"}, 
         {"base1.exs", nil, nil},
-        {"level1/level2/all_three.ex", "level1/level2/all_three.md", "level1/level2/all_three.html"}
+        {"exs_and_ex.ex", nil, nil},
+        {"level1/exs_and_html.exs", nil, "level1/exs_and_html.html"},
+        {"level1/level2/all_three.ex", "level1/level2/all_three.md", "level1/level2/all_three.html"},
       ] |> normalize_result()
       assert expected == specs(@fixture_dir)
     end

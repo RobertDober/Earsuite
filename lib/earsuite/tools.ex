@@ -70,7 +70,7 @@ defmodule Earsuite.Tools do
     end
 
     def make_spec_tuple(file_stub) do
-      {elixir_file_stub(file_stub), markdown_file_stub(file_stub), html_file_stub(file_stub)}
+      {elixir_file(file_stub), markdown_file(file_stub), html_file(file_stub)}
     end
 
 
